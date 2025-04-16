@@ -148,6 +148,7 @@ services:
       - default
     environment:
       - FLOWER_PORT=5555
+      - BROKER_URL=amqp://langflow:langflow@broker:5672
 
     command: /bin/sh -c "python -m celery -A langflow.worker.celery_app --broker=${BROKER_URL?Variable not set} flower --port=5555"
     deploy:
