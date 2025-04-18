@@ -11,6 +11,10 @@
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
+COPY./docker/frontend/README.md /app/README.md
+COPY./docker/frontend/uv.lock /app/uv.lock
+COPY./docker/frontend/pyproject.toml /app/pyproject.toml
+
 # Install the project into `/app`
 WORKDIR /app
 
