@@ -11,9 +11,7 @@
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
-COPY./docker/frontend/README.md /app/README.md
-COPY./docker/frontend/uv.lock /app/uv.lock
-COPY./docker/frontend/pyproject.toml /app/pyproject.toml
+
 
 # Install the project into `/app`
 WORKDIR /app
@@ -58,9 +56,9 @@ RUN --mount=type=cache,target=/root/.npm \
     && rm -rf /tmp/src/frontend
 
 WORKDIR /app
-COPY ./pyproject.toml /app/pyproject.toml
-COPY ./uv.lock /app/uv.lock
-#COPY ./README.md /app/README.md
+COPY ./docker/frontend/README.md /app/README.md
+COPY ./docker/frontend/uv.lock /app/uv.lock
+COPY ./docker/frontend/pyproject.toml /app/pyproject.toml
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-editable --extra postgresql
