@@ -25,5 +25,9 @@ LABEL org.opencontainers.image.source=https://github.com/langflow-ai/langflow
 COPY --from=builder-base --chown=nginx /frontend/build /usr/share/nginx/html
 COPY /docker/frontend/start-nginx.sh /start-nginx.sh
 COPY /docker/frontend/default.conf.template /etc/nginx/conf.d/default.conf.template
+USER root
 RUN chmod +x /start-nginx.sh
+# Switch back to the non-root user
+USER nginx
+# RUN chmod +x /start-nginx.sh
 ENTRYPOINT ["/start-nginx.sh"]
