@@ -90,7 +90,7 @@ LABEL org.opencontainers.image.source=https://github.com/langflow-ai/langflow
 USER user
 WORKDIR /app
 
-ENV LANGFLOW_HOST=13.40.98.241
+ENV LANGFLOW_HOST=3.8.194.163
 ENV LANGFLOW_PORT=7860
 
 CMD ["langflow", "run"]
