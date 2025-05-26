@@ -63,6 +63,13 @@ WORKDIR /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-editable --extra postgresql
 
+
+# here
+
+COPY ./flows /app/flows
+COPY ./components /app/components
+COPY ./langflow-config-dir /app/langflow-config-dir
+
 ################################
 # RUNTIME
 # Setup user, utilities and copy the virtual environment only
@@ -90,7 +97,7 @@ LABEL org.opencontainers.image.source=https://github.com/langflow-ai/langflow
 USER user
 WORKDIR /app
 
-ENV LANGFLOW_HOST=13.43.144.88
+ENV LANGFLOW_HOST=ec2-13-43-144-88.eu-west-2.compute.amazonaws.com
 ENV LANGFLOW_PORT=7860
 
 CMD ["langflow", "run"]
