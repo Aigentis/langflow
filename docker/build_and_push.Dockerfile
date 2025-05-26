@@ -11,7 +11,10 @@
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
-
+# Create accessible folders and set the working directory in the container
+RUN mkdir /app/flows
+RUN mkdir /app/langflow-config-dir
+RUN mkdir /app/src
 
 # Install the project into `/app`
 WORKDIR /app
