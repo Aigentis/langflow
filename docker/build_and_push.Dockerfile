@@ -12,9 +12,11 @@
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
 # Create accessible folders and set the working directory in the container
-RUN mkdir /app/flows
-RUN mkdir /app/langflow-config-dir
-RUN mkdir /app/src
+
+RUN mkdir -p /app/flows
+RUN mkdir -p /app/components
+RUN mkdir -p /app/langflow-config-dir
+
 
 # Install the project into `/app`
 WORKDIR /app
