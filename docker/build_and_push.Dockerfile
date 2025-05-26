@@ -32,7 +32,7 @@ RUN apt-get update \
     npm \
     # gcc
     gcc \
-
+    && pip install celery \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
