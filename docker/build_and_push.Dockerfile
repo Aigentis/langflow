@@ -13,9 +13,7 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
 # Create accessible folders and set the working directory in the container
 
-# RUN mkdir -p /app/flows
-# RUN mkdir -p /app/components
-# RUN mkdir -p /app/langflow-config-dir
+
 
 
 # Install the project into `/app`
@@ -43,9 +41,9 @@ RUN apt-get update \
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
-#    --mount=type=bind,source=README.md,target=README.md \
+    --mount=type=bind,source=README.md,target=README.md \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-#    --mount=type=bind,source=src/backend/base/README.md,target=src/backend/base/README.md \
+    --mount=type=bind,source=src/backend/base/README.md,target=src/backend/base/README.md \
     --mount=type=bind,source=src/backend/base/uv.lock,target=src/backend/base/uv.lock \
     --mount=type=bind,source=src/backend/base/pyproject.toml,target=src/backend/base/pyproject.toml \
     uv sync --frozen --no-install-project --no-editable --extra postgresql
@@ -69,11 +67,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-editable --extra postgresql
 
 
-# here
 
-# COPY ./flows /app/flows
-# COPY ./components /app/components
-# COPY ./langflow-config-dir /app/langflow-config-dir
 
 ################################
 # RUNTIME
