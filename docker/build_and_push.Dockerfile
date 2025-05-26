@@ -13,9 +13,9 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
 
 # Create accessible folders and set the working directory in the container
 
-RUN mkdir -p /app/flows
-RUN mkdir -p /app/components
-RUN mkdir -p /app/langflow-config-dir
+# RUN mkdir -p /app/flows
+# RUN mkdir -p /app/components
+# RUN mkdir -p /app/langflow-config-dir
 
 
 # Install the project into `/app`
@@ -71,9 +71,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # here
 
-COPY ./flows /app/flows
-COPY ./components /app/components
-COPY ./langflow-config-dir /app/langflow-config-dir
+# COPY ./flows /app/flows
+# COPY ./components /app/components
+# COPY ./langflow-config-dir /app/langflow-config-dir
 
 ################################
 # RUNTIME
