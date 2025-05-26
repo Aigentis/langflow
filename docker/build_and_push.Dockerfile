@@ -59,8 +59,8 @@ RUN --mount=type=cache,target=/root/.npm \
     && rm -rf /tmp/src/frontend
 
 WORKDIR /app
- COPY ./docker/frontend/README.md /app/README.md
- COPY ./docker/frontend/uv.lock /app/uv.lock
+ COPY ./README.md /app/README.md
+ COPY ./uv.lock /app/uv.lock
  COPY ./pyproject.toml /app/pyproject.toml
 
 RUN --mount=type=cache,target=/root/.cache/uv \
