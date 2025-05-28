@@ -99,4 +99,16 @@ WORKDIR /app
 ENV LANGFLOW_HOST=0.0.0.0
 ENV LANGFLOW_PORT=7860
 
-CMD ["langflow", "run"]
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose the Nginx port
+EXPOSE 80
+
+# Run the start script
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+# CMD ["langflow", "run"]
+
+CMD ["/app/start.sh"]
