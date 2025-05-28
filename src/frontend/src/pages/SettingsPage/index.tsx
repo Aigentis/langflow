@@ -73,7 +73,7 @@ export default function SettingsPage(): JSX.Element {
   if (!ENABLE_DATASTAX_LANGFLOW) {
     const langflowItems = [
       {
-        title: "Langflow API Keys",
+        title: "AIGENTIS API Keys",
         href: "/settings/api-keys",
         icon: (
           <ForwardedIconComponent
@@ -83,7 +83,7 @@ export default function SettingsPage(): JSX.Element {
         ),
       },
       {
-        title: "Langflow Store",
+        title: "AIGENTIS Store",
         href: "/settings/store",
         icon: (
           <ForwardedIconComponent
