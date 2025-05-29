@@ -109,8 +109,9 @@ EXPOSE 80
 
 # Run the start script
 COPY /docker/start.sh /app/start.sh
-RUN chown user:user /app/start.sh
+RUN chown 1000:0 /app/start.sh
 RUN chmod +x /app/start.sh
+
 
 # CMD ["langflow", "run"]
 CMD ["sh", "-c", "cd /app &&./start.sh"]
