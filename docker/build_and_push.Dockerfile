@@ -106,7 +106,8 @@ COPY /docker/nginx.conf /etc/nginx/nginx.conf
 
 # Expose the Nginx port
 EXPOSE 80
-RUN groupadd -r mygroup -g 0 && useradd -r myuser -u 1000 -g 0
+RUN groupadd -r mygroup -g 1000 && useradd -r myuser -u 1000 -g 1000
+
 # Run the start script
 COPY /docker/start.sh /app/start.sh
 RUN chown 1000:0 /app/start.sh
