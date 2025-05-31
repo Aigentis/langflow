@@ -79,8 +79,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install git -y \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd user -u 1000 -g 0 --no-create-home --home-dir /app/data
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder --chown=1000 /app/.venv /app/.venv
 COPY --from=builder /app /app
@@ -95,23 +94,28 @@ LABEL org.opencontainers.image.source=https://github.com/langflow-ai/langflow
 
 
 
-USER user
+# Copy the Nginx configuration file (as root)
+COPY /docker/nginx.conf /etc/nginx/nginx.conf
+
+# Create additional group and user (as root)
+# Create a dedicated group and user for the application
+RUN groupadd -r appgroup -g 1000 && \
+    useradd -r -u 1000 -g appgroup --no-create-home --home-dir /app/data appuser
+
+# Copy start script and set permissions for the new user/group
+COPY /docker/start.sh /app/start.sh
+RUN chown 1000:1000 /app/start.sh 
+RUN chmod +x /app/start.sh
+
+# Now switch to the non-root user 'appuser'
+USER appuser
 WORKDIR /app
 
 ENV LANGFLOW_HOST=0.0.0.0
 ENV LANGFLOW_PORT=7860
 
-# Copy the Nginx configuration file
-COPY /docker/nginx.conf /etc/nginx/nginx.conf
-
 # Expose the Nginx port
 EXPOSE 80
-RUN groupadd -r mygroup -g 1000 && useradd -r myuser -u 1000 -g 1000
-
-# Run the start script
-COPY /docker/start.sh /app/start.sh
-RUN chown 1000:0 /app/start.sh
-RUN chmod +x /app/start.sh
 
 
 # CMD ["langflow", "run"]
