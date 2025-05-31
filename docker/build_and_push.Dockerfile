@@ -107,6 +107,10 @@ COPY /docker/start.sh /app/start.sh
 RUN chown 1000:1000 /app/start.sh 
 RUN chmod +x /app/start.sh
 
+# Create data directory and set permissions for appuser
+RUN mkdir -p /app/data && \
+    chown appuser:appgroup /app/data
+
 # Now switch to the non-root user 'appuser'
 USER appuser
 WORKDIR /app
