@@ -35,6 +35,8 @@ RUN apt-get update \
     npm \
     # gcc
     gcc \
+    # for postgresql client build
+    libpq-dev \
     && pip install celery \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -78,10 +80,12 @@ FROM python:3.12.3-slim AS runtime
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install git -y \
+    # for postgresql runtime client
+    libpq5 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder --chown=1000 /app/.venv /app/.venv
+COPY --from=builder --chown=1000:1000 /app/.venv /app/.venv
 COPY --from=builder /app /app
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
@@ -109,7 +113,7 @@ RUN chmod +x /app/start.sh
 
 # Create data directory and set permissions for appuser
 RUN mkdir -p /app/data && \
-    chown appuser:appgroup /app/data
+    chown 1000:1000 /app/data
 
 # Now switch to the non-root user 'appuser'
 USER appuser
