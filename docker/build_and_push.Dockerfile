@@ -115,6 +115,9 @@ RUN chmod +x /app/start.sh
 RUN mkdir -p /app/data && \
     chown 1000:1000 /app/data
 
+# Grant write permission to the Langflow alembic directory for the owner
+RUN chmod -R u+w /app/.venv/lib/python3.12/site-packages/langflow/alembic/
+
 # Now switch to the non-root user 'appuser'
 USER appuser
 WORKDIR /app
