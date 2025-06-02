@@ -116,7 +116,7 @@ RUN mkdir -p /app/data && \
     chown 1000:1000 /app/data
 
 # Grant write permission to the Langflow alembic directory for the owner
-RUN chmod -R u+w /app/.venv/lib/python3.12/site-packages/langflow/alembic/
+RUN mkdir -p /app/.venv/lib/python3.12/site-packages/langflow/alembic/ && chown -R 1000:1000 /app/.venv/lib/python3.12/site-packages/langflow/alembic/
 
 # Now switch to the non-root user 'appuser'
 USER appuser
@@ -124,6 +124,9 @@ WORKDIR /app
 
 ENV LANGFLOW_HOST=0.0.0.0
 ENV LANGFLOW_PORT=7860
+# WARNING: Hardcoding database credentials in the Dockerfile is not recommended for production due to security risks.
+# It's generally better to set this via your deployment platform (e.g., Dokploy environment variables).
+ENV LANGFLOW_DATABASE_URL=postgresql+asyncpg://langflow:langflow@13.43.144.88:5432/langflow
 
 # Expose the Nginx port
 EXPOSE 80
