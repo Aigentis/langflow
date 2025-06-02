@@ -79,7 +79,7 @@ FROM python:3.12.3-slim AS runtime
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install git -y \
+    && apt-get install --no-install-recommends -y git nginx \
     # for postgresql runtime client
     libpq5 \
     && apt-get clean \
@@ -124,7 +124,6 @@ WORKDIR /app
 
 ENV LANGFLOW_HOST=0.0.0.0
 ENV LANGFLOW_PORT=7860
-
 
 
 # Expose the Nginx port
