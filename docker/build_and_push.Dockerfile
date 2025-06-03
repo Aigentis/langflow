@@ -101,6 +101,11 @@ LABEL org.opencontainers.image.source=https://github.com/langflow-ai/langflow
 # Copy the Nginx configuration file (as root)
 COPY /docker/nginx.conf /etc/nginx/nginx.conf
 
+RUN mkdir -p /var/lib/nginx /var/log/nginx /run/nginx && \
+    chown -R 1000:1000 /var/lib/nginx /var/log/nginx /run/nginx
+
+
+
 # Create additional group and user (as root)
 # Create a dedicated group and user for the application
 RUN groupadd -r appgroup -g 1000 && \
